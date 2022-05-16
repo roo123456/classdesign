@@ -1,0 +1,15 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3307/classdesign
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: ctkj0942
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+  mvc:
+    static-path-pattern: /static/**
