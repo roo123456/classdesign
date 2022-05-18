@@ -17,9 +17,9 @@
     <meta name="author" content="">
     <meta name="MobileOptimized" content="320">
     <!--Start Style -->
-    <link rel="stylesheet" type="text/css" href="static/css/fonts.css">
-    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="static/css/auth.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/fonts.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/auth.css}">
 </head>
 
 <body>
@@ -28,12 +28,12 @@
             <div class="row align-items-center">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                     <div class="ad-auth-img">
-                        <img src="static/picture/auth-img1.png" alt="">
+                        <img th:src="@{/static/picture/auth-img1.png}" alt="">
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                     <div class="ad-auth-content">
-                        <form method="post" th:action="@{doRegister}">
+                        <form method="post" th:action="@{/api/auth/register}">
                             <h2><span class="primary">你好,</span>欢迎注册!</h2>
                             <p>请输入你的用户名和密码</p>
                             <div class="ad-auth-form">
@@ -52,11 +52,10 @@
                                     </div>
                                 </div>
                             </div>
-                            
                             <div class="ad-auth-btn">
                                 <button href="javascript:void(0);" class="ad-btn ad-login-member">注册</button>
                             </div>
-                            <p class="ad-register-text">已经有账号了？<a th:href="@{login}">登录</a></p>
+                            <p class="ad-register-text">已经有账号了？<a th:href="@{/page/auth/login}">登录</a></p>
                         </form>
                     </div>
                 </div>
