@@ -11,7 +11,7 @@ public interface AuthService {
      * @param uname
      * @param upassword
      */
-    void registerUser(String uname,String upassword);
+    void registerUser(String uname,String upassword,String nickname);
 
     /**
      * 通过session查找用户信息

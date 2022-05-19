@@ -38,7 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/static/**","/page/auth/**","/api/auth/**").permitAll()
                 .antMatchers("/api/user/**","/page/user/**").hasRole("user")
                 .antMatchers("/api/admin/**","/page/admin/**").hasRole("admin")
-                .antMatchers("/api/vip/**","/page/vip/**").hasRole("vip")
+                //.antMatchers("/api/vip/**","/page/vip/**").hasRole("vip")
                 .anyRequest().hasAnyRole("user","admin","vip")
                 .and()
                 .formLogin()
@@ -67,9 +67,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             case "user":
                 resp.sendRedirect("/page/user/index");
                 break;
-            case "vip":
-                resp.sendRedirect("/page/vip/index");
-                break;
+//            case "vip":
+//                resp.sendRedirect("/page/vip/index");
+//                break;
         }
     }
 }

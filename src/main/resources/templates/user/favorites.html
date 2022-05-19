@@ -59,7 +59,7 @@
                             </a>
                             <div class="user-info-box">
                                 <div class="drop-down-header">
-                                    <h4 th:text="${user.getUname()}">John Brown</h4>
+                                    <h4 th:text="${user.getNickname()}">John Brown</h4>
                                     <p th:text="${user.getUrole()}">UI | UX Designer</p>
                                 </div>
                                 <ul>
@@ -298,7 +298,7 @@
                                                     <th>上传时间</th>
                                                     <th>上传用户</th>
                                                     <th>下载</th>
-													<th>删除</th>
+													<th>取消收藏</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

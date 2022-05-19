@@ -22,4 +22,22 @@ public class UserPageController {
         model.addAttribute("user",authService.findUserBySession(httpSession));
         return "/user/index";
     }
+
+    @RequestMapping("/profile")
+    public String profile(HttpSession httpSession, Model model){
+        model.addAttribute("user",authService.findUserBySession(httpSession));
+        return "/user/profile";
+    }
+
+    @RequestMapping("/favorites")
+    public String favorites(HttpSession httpSession, Model model){
+        model.addAttribute("user",authService.findUserBySession(httpSession));
+        return "/user/favorites";
+    }
+
+    @RequestMapping("/recycle")
+    public String recycle(HttpSession httpSession, Model model){
+        model.addAttribute("user",authService.findUserBySession(httpSession));
+        return "/user/recycle";
+    }
 }

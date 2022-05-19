@@ -20,9 +20,9 @@ public class AuthServiceImpl implements AuthService {
     UserMapper userMapper;
 
     @Override
-    public void registerUser(String uname, String upassword) {
+    public void registerUser(String uname, String upassword,String nickname) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        if(userMapper.registerUser(uname, encoder.encode(upassword), "user") <= 0){
+        if(userMapper.registerUser(uname, encoder.encode(upassword), "user",nickname) <= 0){
             throw new RuntimeException("用户注册失败");
         }
     }

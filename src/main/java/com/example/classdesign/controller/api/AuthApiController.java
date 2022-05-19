@@ -19,8 +19,9 @@ public class AuthApiController {
 
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public String doRegister(@RequestParam("username")String username,
-                             @RequestParam("password")String password){
-        authService.registerUser(username,password);
+                             @RequestParam("password")String password,
+                             @RequestParam("nickname")String nickname){
+        authService.registerUser(username,password,nickname);
         return "redirect:/login";
     }
 }
