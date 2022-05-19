@@ -14,6 +14,6 @@ public interface UserMapper {
     @Select("select * from user where uname = #{uname}")
     User findPasswordByUsername(String uname);
 
-    @Update("update user set uname = #{uname},upassword = #{upassword} where uname = #{oldUname}")
-    void ChangeUsernameAndPassword(@Param("uname")String uname,@Param("upassword")String upassword,@Param("oldUname")String oldUname);
+    @Update("update user set upassword = #{upassword} where uname = #{uname}")
+    void ChangeUsernameAndPassword(@Param("uname")String uname,@Param("upassword")String upassword);
 }

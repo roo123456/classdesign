@@ -30,7 +30,7 @@ public class UserApiController {
         if(!user.getUname().equals(uname)) {
             return "redirect:/api/auth/logout";
         }
-        userService.ChangeUsernameAndPassword(uname,upassword,user.getUname());
+        userService.ChangeUsernameAndPassword(uname,upassword);
         return "redirect:/api/auth/logout";
     }
 }

@@ -14,9 +14,9 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Override
-    public void ChangeUsernameAndPassword(String uname, String upassword,String oldUname) {
+    public void ChangeUsernameAndPassword(String uname, String upassword) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         upassword = encoder.encode(upassword);
-        userMapper.ChangeUsernameAndPassword(uname, upassword, oldUname);
+        userMapper.ChangeUsernameAndPassword(uname, upassword);
     }
 }
