@@ -16,6 +16,12 @@ public class AdminPageController {
     @Resource
     AuthService authService;
 
+    /**
+     * 打开admin主页
+     * @param httpSession
+     * @param model
+     * @return
+     */
     @RequestMapping("/index")
     public String index(HttpSession httpSession, Model model){
         model.addAttribute("user",authService.findUserBySession(httpSession));

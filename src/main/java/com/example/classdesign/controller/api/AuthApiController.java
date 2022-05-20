@@ -17,6 +17,13 @@ public class AuthApiController {
     @Resource
     AuthService authService;
 
+    /**
+     * 注册
+     * @param username
+     * @param password
+     * @param nickname
+     * @return
+     */
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public String doRegister(@RequestParam("username")String username,
                              @RequestParam("password")String password,

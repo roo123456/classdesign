@@ -69,9 +69,12 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="setting.html">
-                                            <i class="fas fa-cog"></i> 上传文件
-                                        </a>
+                                        <form>
+                                            <input type="file" id="file" name="file" oninput="upload()" hidden>
+                                            <a onclick="file.click()">
+                                                <i class="fas fa-cog"></i> 上传文件
+                                            </a>
+                                        </form>
                                     </li>
                                     <li>
                                         <a th:href="@{/api/auth/logout}">
@@ -303,11 +306,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-												<tr>
-                                                    <td>#DD1048</td>
-                                                    <td>#DD1048</td>
-                                                    <td>13/04/2021</td>
-                                                    <td th:text="${user.getUname()}">$880</td>
+												<tr th:each="file : ${files}">
+                                                    <td th:text="${file.getFid()}">#DD1048</td>
+                                                    <td th:text="${file.getFname()}">#DD1048</td>
+                                                    <td th:text="${file.getFdate()}">13/04/2021</td>
+                                                    <td th:text="${user.getNickname()}">$880</td>
                                                     <td class="relative">
                                                         <a class="action-btn " th:href="@{/api/user/download}">
                                                             <svg class="default-size " viewbox="0 0 341.333 341.333 ">
@@ -381,6 +384,7 @@
     <script th:src="@{/static/js/nice-select.min.js}"></script>
     <!-- Custom Script -->
     <script th:src="@{/static/js/custom.js}"></script>
+    <script th:src="@{/static/js/file.js}"></script>
 </body>
 
 </html>
