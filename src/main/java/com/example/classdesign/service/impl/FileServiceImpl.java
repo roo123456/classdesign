@@ -19,4 +19,19 @@ public class FileServiceImpl implements FileService {
     public List<File> FindFilesByUser(User user) {
         return fileMapper.FindFilesByUser(user.getUid());
     }
+
+    @Override
+    public List<File> FindFavoritesByUser(User user) {
+        return fileMapper.FindFavoritesByUser(user.getUid());
+    }
+
+    @Override
+    public List<File> FindRecyclesByUser(User user) {
+        return fileMapper.FindRecyclesByUser(user.getUid());
+    }
+
+    @Override
+    public File FindFileByFid(int fid) {
+        return fileMapper.FindFileByFid(fid);
+    }
 }

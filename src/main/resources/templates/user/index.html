@@ -103,7 +103,7 @@
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/page/user/favorites}">
+                        <a th:href="@{/page/user/favorite}">
                             <span class="icon-menu feather-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
                             </span>
@@ -312,7 +312,7 @@
                                                     <td th:text="${file.getFdate()}">13/04/2021</td>
                                                     <td th:text="${user.getNickname()}">$880</td>
                                                     <td class="relative">
-                                                        <a class="action-btn " th:href="@{/api/user/download}">
+                                                        <a class="action-btn " th:href="@{/api/user/download?fid=} + ${file.getFid()}">
                                                             <svg class="default-size " viewbox="0 0 341.333 341.333 ">
                                                                 <g>
                                                                     <g>
@@ -327,7 +327,7 @@
                                                         </a>
                                                     </td>
                                                     <td class="relative">
-                                                        <a class="action-btn " th:href="@{/api/user/favorites}">
+                                                        <a class="action-btn " th:href="@{/api/user/addFavorite?fid=} + ${file.getFid()}">
                                                             <svg class="default-size " viewbox="0 0 341.333 341.333 ">
                                                                 <g>
                                                                     <g>
@@ -342,7 +342,7 @@
                                                         </a>
                                                     </td>
                                                     <td class="relative">
-                                                        <a class="action-btn " th:href="@{/api/user/recycle}">
+                                                        <a class="action-btn " th:href="@{/api/user/addRecycle?fid=} + ${file.getFid()}">
                                                             <svg class="default-size " viewbox="0 0 341.333 341.333 ">
                                                                 <g>
                                                                     <g>

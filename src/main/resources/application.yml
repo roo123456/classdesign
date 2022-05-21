@@ -13,3 +13,7 @@ spring:
     encoding: UTF-8
   mvc:
     static-path-pattern: /static/**
+  servlet:
+    multipart:
+      max-file-size: 2000MB
+      max-request-size: 2000MB

@@ -69,9 +69,12 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="setting.html">
-                                            <i class="fas fa-cog"></i> 上传文件
-                                        </a>
+                                        <form>
+                                            <input type="file" id="file" name="file" oninput="upload()" hidden>
+                                            <a onclick="file.click()">
+                                                <i class="fas fa-cog"></i> 上传文件
+                                            </a>
+                                        </form>
                                     </li>
                                     <li>
                                         <a th:href="@{/api/auth/logout}">
@@ -100,7 +103,7 @@
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/page/user/favorites}">
+                        <a th:href="@{/page/user/favorite}">
                             <span class="icon-menu feather-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
                             </span>
@@ -302,13 +305,13 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-												<tr>
-                                                    <td>#DD1048</td>
-                                                    <td>#DD1048</td>
-                                                    <td>13/04/2021</td>
+												<tr th:each="recycle : ${recycles}">
+                                                    <td th:text="${recycle.getFid()}">#DD1048</td>
+                                                    <td th:text="${recycle.getFname()}">#DD1048</td>
+                                                    <td th:text="${recycle.getFdate()}">13/04/2021</td>
                                                     <td th:text="${user.getNickname()}">$880</td>
                                                     <td class="relative">
-                                                        <a class="action-btn " href="javascript:void(0); ">
+                                                        <a class="action-btn " th:href="@{/api/user/cancelRecycle?fid=} + ${recycle.getFid()}">
                                                             <svg class="default-size " viewbox="0 0 341.333 341.333 ">
                                                                 <g>
                                                                     <g>
@@ -323,7 +326,7 @@
                                                         </a>
                                                     </td>
                                                     <td class="relative">
-                                                        <a class="action-btn " href="javascript:void(0); ">
+                                                        <a class="action-btn " th:href="@{/api/user/deleteFile?fid=} + ${recycle.getFid()}">
                                                             <svg class="default-size " viewbox="0 0 341.333 341.333 ">
                                                                 <g>
                                                                     <g>
@@ -365,6 +368,7 @@
     <script th:src="@{/static/js/nice-select.min.js}"></script>
     <!-- Custom Script -->
     <script th:src="@{/static/js/custom.js}"></script>
+    <script th:src="@{/static/js/file.js}"></script>
 </body>
 
 </html>

@@ -53,9 +53,11 @@ public class UserPageController {
      * @param model
      * @return
      */
-    @RequestMapping("/favorites")
+    @RequestMapping("/favorite")
     public String favorites(HttpSession httpSession, Model model){
-        model.addAttribute("user",authService.findUserBySession(httpSession));
+        User user = authService.findUserBySession(httpSession);
+        model.addAttribute("user",user);
+        model.addAttribute("favorites",fileService.FindFavoritesByUser(user));
         return "/user/favorites";
     }
 
@@ -67,7 +69,9 @@ public class UserPageController {
      */
     @RequestMapping("/recycle")
     public String recycle(HttpSession httpSession, Model model){
-        model.addAttribute("user",authService.findUserBySession(httpSession));
+        User user = authService.findUserBySession(httpSession);
+        model.addAttribute("user",user);
+        model.addAttribute("recycles",fileService.FindRecyclesByUser(user));
         return "/user/recycle";
     }
 }

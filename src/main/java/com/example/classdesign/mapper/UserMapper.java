@@ -58,4 +58,28 @@ public interface UserMapper {
      */
     @Insert("insert into user_file(uid,fid,status) values(#{uid},#{fid},#{status})")
     void insertUploadInfo(@Param("uid")int uid,@Param("fid")int fid,@Param("status")int status);
+
+    /**
+     * 修改user_file表中status为2 即收藏夹对应数字
+     * @param uid
+     * @param fid
+     */
+    @Update("update user_file set status = 2 where uid = #{uid} and fid = #{fid}")
+    void updateStatusToFavorite(@Param("uid")int uid,@Param("fid")int fid);
+
+    /**
+     * 修改user_file表中status为1 即正常页对应数字
+     * @param uid
+     * @param fid
+     */
+    @Update("update user_file set status = 1 where uid = #{uid} and fid = #{fid}")
+    void updateStatusToNormal(@Param("uid")int uid,@Param("fid")int fid);
+
+    /**
+     * 修改user_file表中status为0 即回收页对应数字
+     * @param uid
+     * @param fid
+     */
+    @Update("update user_file set status = 0 where uid = #{uid} and fid = #{fid}")
+    void updateStatusToRecycle(@Param("uid")int uid,@Param("fid")int fid);
 }
