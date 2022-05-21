@@ -1469,7 +1469,7 @@ thead th {
     display: flex;
     align-items: center;
     padding: 10px 20px;
-    justify-content: center;
+    /*justify-content: center;*/
     position: relative;
 }
 
