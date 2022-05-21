@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
             }
         }
         //添加文件信息
-        userMapper.uploadFile(fname,newFile.getPath());
+        userMapper.uploadFile(fname,newFile.getPath()+"\\"+fname);
         int fid = fileMapper.getLastInsertId();
         userMapper.insertUploadInfo(user.getUid(),fid,1);
     }
