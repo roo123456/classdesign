@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     @Resource
     FileMapper fileMapper;
 
-    private final static String filePath = "D:\\IDEAProject\\classdesign\\files";
+    private final static String filePath = "D:\\IDEAProject\\classdesign\\files";//这里更改要存储的文件夹名
 
     @Override
     public void ChangeUsernameAndPassword(String uname, String upassword) {
@@ -34,10 +34,13 @@ public class UserServiceImpl implements UserService {
         if ("".equals(fname)){
             return;
         }
-        File newFile = new File(filePath,fname);
+        File newFile = new File(filePath);
+        if(!newFile.exists()){
+            newFile.mkdirs();
+        }
         //服务端保存文件
         try(InputStream is = file.getInputStream();
-        OutputStream os = new FileOutputStream(newFile)){
+        OutputStream os = new FileOutputStream(new File(newFile,fname))){
             int len=0;
             byte[] buffer = new byte[1024];
             while ((len=is.read(buffer))!=-1){
