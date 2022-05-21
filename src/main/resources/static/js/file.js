@@ -13,6 +13,7 @@ function upload(){
         // clearForm: true,//提交后是否清空表单数据
         success: function(data) {   //提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
             alert('上传成功');
+            location.reload();
         },
         error: function(data, status, e) {  //提交失败自动执行的处理函数。
             console.error(e);

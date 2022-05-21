@@ -56,7 +56,7 @@ public class UserApiController {
      * @throws IOException
      */
     @PostMapping("/upload")
-    public String getFile(@RequestPart("file") MultipartFile file,
+    public String upload(@RequestPart("file") MultipartFile file,
                           HttpSession session) throws IOException {
         User user = authService.findUserBySession(session);
         userService.UploadFile(user,file);
