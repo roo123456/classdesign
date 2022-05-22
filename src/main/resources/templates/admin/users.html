@@ -111,7 +111,7 @@
                     <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-title-wrapper">
                             <div class="page-title-box">
-                                <h4 class="page-title bold">文件列表</h4>
+                                <h4 class="page-title bold">用户列表</h4>
                             </div>
                         </div>
                     </div>
@@ -228,7 +228,7 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card chart-card">
                             <div class="card-header">
-                                <h4>文件列表</h4>
+                                <h4>用户列表</h4>
                             </div>
                             <div class="card-body pb-4">
                                 <div class="chart-holder">
@@ -236,22 +236,20 @@
                                         <table class="table table-styled mb-0">
                                             <thead>
                                                 <tr>
-                                                    <th>文件id</th>
-                                                    <th>文件名</th>
-                                                    <th>上传时间</th>
-                                                    <th>上传用户</th>
-                                                    <th>下载</th>
-													<th>删除</th>
+                                                    <th>用户id</th>
+                                                    <th>用户名</th>
+                                                    <th>用户昵称</th>
+                                                    <th>修改</th>
+                                                    <th>注销</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-												<tr th:each="userFile : ${userFiles}">
-                                                    <td th:text="${userFile.getFid()}">#DD1048</td>
-                                                    <td th:text="${userFile.getFname()}">#DD1048</td>
-                                                    <td th:text="${userFile.getFdate()}">13/04/2021</td>
-                                                    <td th:text="${userFile.getUname()}">$880</td>
+												<tr th:each="oneUser : ${users}">
+                                                    <td th:text="${oneUser.getUid()}">#DD1048</td>
+                                                    <td th:text="${oneUser.getUname()}">#DD1048</td>
+                                                    <td th:text="${oneUser.getNickname()}">13/04/2021</td>
                                                     <td class="relative">
-                                                        <a class="action-btn " th:href="@{/api/admin/download?fid=} + ${userFile.getFid()}">
+                                                        <a class="action-btn " th:href="@{/page/admin/change?uid=} + ${oneUser.getUid()}">
                                                             <svg class="default-size " viewbox="0 0 341.333 341.333 ">
                                                                 <g>
                                                                     <g>
@@ -266,7 +264,7 @@
                                                         </a>
                                                     </td>
                                                     <td class="relative">
-                                                        <a class="action-btn " th:href="@{/api/admin/deleteFile?fid=} + ${userFile.getFid()}">
+                                                        <a class="action-btn " th:href="@{/api/admin/deleteUser?uid=} + ${oneUser.getUid()}">
                                                             <svg class="default-size " viewbox="0 0 341.333 341.333 ">
                                                                 <g>
                                                                     <g>

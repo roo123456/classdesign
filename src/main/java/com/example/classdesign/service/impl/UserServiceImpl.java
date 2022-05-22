@@ -82,4 +82,14 @@ public class UserServiceImpl implements UserService {
         boolean delete = file.delete();
         fileMapper.DeleteFile(fid);
     }
+
+    @Override
+    public void deleteUser(int uid) {
+        userMapper.deleteUser(uid);
+    }
+
+    @Override
+    public void deleteUserFiles(int uid) {
+        userMapper.deleteUserFiles(uid);
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.classdesign.mapper;
 
+import com.example.classdesign.entity.User;
+import com.example.classdesign.entity.UserFiles;
 import com.example.classdesign.entity.File;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
@@ -52,4 +54,18 @@ public interface FileMapper {
      */
     @Select("select * from file where fid = #{fid}")
     File FindFileByFid(int fid);
+
+    /**
+     * 查找所有文件
+     */
+    @Select("select user_file.uid,user_file.fid,`status`,fname,fdate,uname from user_file left join file on (file.fid = user_file.fid) left join user on (user.uid = user_file.uid)")
+    List<UserFiles> FindAllFiles();
+
+    /**
+     * 查找某个用户上传的所有文件id
+     * @param uid
+     * @return
+     */
+    @Select("select fid from user_file where uid = #{uid}")
+    List<Integer> FindOneUserFids(int uid);
 }

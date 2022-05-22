@@ -3,6 +3,8 @@ package com.example.classdesign.mapper;
 import com.example.classdesign.entity.User;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
     /**
@@ -82,4 +84,31 @@ public interface UserMapper {
      */
     @Update("update user_file set status = 0 where uid = #{uid} and fid = #{fid}")
     void updateStatusToRecycle(@Param("uid")int uid,@Param("fid")int fid);
+
+    /**
+     * 查找所有用户
+     * @return
+     */
+    @Select("select * from user")
+    List<User> FindAllUsers();
+
+    /**
+     * 修改某用户的用户名和密码
+     */
+    @Update("update user set uname = #{uname},upassword = #{upassword} where uid = #{uid}")
+    void changeUsernameAndPassword(@Param("uid")int uid,@Param("uname")String uname,@Param("upassword")String upassword);
+
+    /**
+     * 删除某用户信息
+     * @param uid
+     */
+    @Delete("delete from user where uid = #{uid}")
+    void deleteUser(int uid);
+
+    /**
+     * 删除某用户的用户-文件信息
+     * @param uid
+     */
+    @Delete("delete from user_file where uid = #{uid}")
+    void deleteUserFiles(int uid);
 }

@@ -52,4 +52,16 @@ public interface UserService {
      * @param user
      */
     void deleteFile(int fid, User user);
+
+    /**
+     * 删除某用户信息
+     * @param uid
+     */
+    void deleteUser(int uid);
+
+    /**
+     * 删除某用户的所有用户-文件信息
+     * @param uid
+     */
+    void deleteUserFiles(int uid);
 }
