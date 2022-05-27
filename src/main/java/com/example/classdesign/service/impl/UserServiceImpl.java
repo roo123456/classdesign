@@ -4,6 +4,8 @@ import com.example.classdesign.entity.User;
 import com.example.classdesign.mapper.FileMapper;
 import com.example.classdesign.mapper.UserMapper;
 import com.example.classdesign.service.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,8 +21,6 @@ public class UserServiceImpl implements UserService {
     @Resource
     FileMapper fileMapper;
 
-    private final static String filePath = "D:\\IDEAProject\\classdesign\\files";//这里更改要存储的文件夹名
-
     @Override
     public void ChangeUsernameAndPassword(String uname, String upassword) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -30,6 +30,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void UploadFile(User user, MultipartFile file) throws IOException {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User thisUser = userMapper.findPasswordByUsername(authentication.getName());
+        String uname = thisUser.getUname();
+        String filePath = "D:\\IDEAProject\\classdesign\\files\\" + uname;//这里更改要存储的文件夹名
+
         String fname = file.getOriginalFilename();
         if ("".equals(fname)){
             return;
