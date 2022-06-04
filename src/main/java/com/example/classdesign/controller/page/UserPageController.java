@@ -3,10 +3,12 @@ package com.example.classdesign.controller.page;
 import com.example.classdesign.entity.User;
 import com.example.classdesign.service.AuthService;
 import com.example.classdesign.service.FileService;
+import com.example.classdesign.service.MeetingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -20,6 +22,8 @@ public class UserPageController {
     AuthService authService;
     @Resource
     FileService fileService;
+    @Resource
+    MeetingService meetingService;
 
     /**
      * 打开user主页
@@ -73,5 +77,39 @@ public class UserPageController {
         model.addAttribute("user",user);
         model.addAttribute("recycles",fileService.FindRecyclesByUser(user));
         return "/user/recycle";
+    }
+
+    /**
+     * 打开会议室页
+     * @param httpSession
+     * @param model
+     * @return
+     */
+    @RequestMapping("/meeting")
+    public String meeting(HttpSession httpSession,Model model){
+        User user = authService.findUserBySession(httpSession);
+        model.addAttribute("user",user);
+        model.addAttribute("meetings",meetingService.getAllMeetingsByUid(user.getUid()));
+        return "/user/meeting";
+    }
+
+    /**
+     * 新建会议室
+     * @param httpSession
+     * @param model
+     * @return
+     */
+    @RequestMapping("/addMeeting")
+    public String addMeeting(HttpSession httpSession, Model model){
+        User user = authService.findUserBySession(httpSession);
+        model.addAttribute("user",user);
+        return "/user/add-meeting";
+    }
+
+    @RequestMapping("/enterMeeting")
+    public String enterMeeting(HttpSession httpSession,Model model){
+        User user = authService.findUserBySession(httpSession);
+        model.addAttribute("user",user);
+        return "/user/enter-meeting";
     }
 }

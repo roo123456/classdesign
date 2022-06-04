@@ -3,14 +3,17 @@ package com.example.classdesign.controller.api;
 import com.example.classdesign.entity.User;
 import com.example.classdesign.service.AuthService;
 import com.example.classdesign.service.FileService;
+import com.example.classdesign.service.MeetingService;
 import com.example.classdesign.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
@@ -27,6 +30,8 @@ public class UserApiController {
     AuthService authService;
     @Resource
     FileService fileService;
+    @Resource
+    MeetingService meetingService;
 
     /**
      * 修改密码
@@ -63,6 +68,13 @@ public class UserApiController {
         return "redirect:/page/user/index";
     }
 
+    /**
+     * 下载文件
+     * @param response
+     * @param fid
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/download")
     public String downloads(HttpServletResponse response,
                             @RequestParam("fid") int fid) throws Exception{
@@ -97,6 +109,12 @@ public class UserApiController {
         return null;
     }
 
+    /**
+     * 添加收藏夹
+     * @param fid
+     * @param session
+     * @return
+     */
     @RequestMapping("/addFavorite")
     public String addFavorite(@RequestParam("fid")int fid,
                                HttpSession session){
@@ -105,6 +123,12 @@ public class UserApiController {
         return "redirect:/page/user/index";
     }
 
+    /**
+     * 从收藏夹删除
+     * @param fid
+     * @param session
+     * @return
+     */
     @RequestMapping("/cancelFavorite")
     public String cancelFavorite(@RequestParam("fid")int fid,
                                  HttpSession session){
@@ -113,6 +137,12 @@ public class UserApiController {
         return "redirect:/page/user/favorite";
     }
 
+    /**
+     * 添加回收站
+     * @param fid
+     * @param session
+     * @return
+     */
     @RequestMapping("/addRecycle")
     public String addRecycle(@RequestParam("fid")int fid,
                              HttpSession session){
@@ -121,6 +151,12 @@ public class UserApiController {
         return "redirect:/page/user/index";
     }
 
+    /**
+     * 从回收站恢复
+     * @param fid
+     * @param session
+     * @return
+     */
     @RequestMapping("/cancelRecycle")
     public String cancelRecycle(@RequestParam("fid")int fid,
                                 HttpSession session){
@@ -129,11 +165,53 @@ public class UserApiController {
         return "redirect:/page/user/recycle";
     }
 
+    /**
+     * 从回收站删除文件
+     * @param fid
+     * @param session
+     * @return
+     */
     @RequestMapping("/deleteFile")
     public String deleteFile(@RequestParam("fid")int fid,
                              HttpSession session){
         User user = authService.findUserBySession(session);
         userService.deleteFile(fid,user);
         return "redirect:/page/user/recycle";
+    }
+
+    /**
+     * 创建会议室
+     * @param mname
+     * @param httpSession
+     * @return
+     */
+    @RequestMapping("/addMeeting")
+    public String addMeeting(@RequestParam("meetingname")String mname,
+                             HttpSession httpSession){
+        User user = authService.findUserBySession(httpSession);
+        meetingService.addMeeting(user.getUid(),user.getNickname(),mname);
+        return "redirect:/page/user/meeting";
+    }
+
+    /**
+     * 加入会议室
+     * @param mkey
+     * @param httpSession
+     * @return
+     */
+    @RequestMapping("/enterMeeting")
+    public String enterMeeting(@RequestParam("meetingkey")String mkey,
+                               HttpSession httpSession){
+        User user = authService.findUserBySession(httpSession);
+        meetingService.enterMeetingByMkey(mkey,user.getUid());
+        return "redirect:/page/user/meeting";
+    }
+
+    @RequestMapping("/leaveMeeting")
+    public String leaveMeeting(@RequestParam("mid")int mid,
+                               HttpSession httpSession){
+        User user = authService.findUserBySession(httpSession);
+        meetingService.leaveMeeting(mid,user.getUid());
+        return "redirect:/page/user/meeting";
     }
 }

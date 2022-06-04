@@ -32,6 +32,13 @@ public class AdminApiController {
     @Resource
     AdminService adminService;
 
+    /**
+     * 下载api
+     * @param response
+     * @param fid
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/download")
     public String downloads(HttpServletResponse response,
                             @RequestParam("fid") int fid) throws Exception{
@@ -66,6 +73,12 @@ public class AdminApiController {
         return null;
     }
 
+    /**
+     * 删除文件
+     * @param fid
+     * @param session
+     * @return
+     */
     @RequestMapping("/deleteFile")
     public String deleteFile(@RequestParam("fid")int fid,
                              HttpSession session){
@@ -75,6 +88,13 @@ public class AdminApiController {
         return "redirect:/page/admin/index";
     }
 
+    /**
+     * 修改密码
+     * @param uname
+     * @param upassword
+     * @param session
+     * @return
+     */
     @RequestMapping("/change")
     public String change(@RequestParam("username")String uname,
                          @RequestParam("password")String upassword,
@@ -84,6 +104,12 @@ public class AdminApiController {
         return "redirect:/page/admin/users";
     }
 
+    /**
+     * 删除用户
+     * @param uid
+     * @param session
+     * @return
+     */
     @RequestMapping("/deleteUser")
     public String deleteUser(@RequestParam("uid")int uid,
                              HttpSession session){
