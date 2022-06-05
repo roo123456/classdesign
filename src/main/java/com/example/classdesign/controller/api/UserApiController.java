@@ -199,19 +199,34 @@ public class UserApiController {
      * @param httpSession
      * @return
      */
-    @RequestMapping("/enterMeeting")
-    public String enterMeeting(@RequestParam("meetingkey")String mkey,
+    @RequestMapping("/joinMeeting")
+    public String joinMeeting(@RequestParam("meetingkey")String mkey,
                                HttpSession httpSession){
         User user = authService.findUserBySession(httpSession);
-        meetingService.enterMeetingByMkey(mkey,user.getUid());
+        meetingService.joinMeetingByMkey(mkey,user.getUid());
         return "redirect:/page/user/meeting";
     }
 
+    /**
+     * 离开会议室
+     * @param mid
+     * @param httpSession
+     * @return
+     */
     @RequestMapping("/leaveMeeting")
     public String leaveMeeting(@RequestParam("mid")int mid,
                                HttpSession httpSession){
         User user = authService.findUserBySession(httpSession);
         meetingService.leaveMeeting(mid,user.getUid());
         return "redirect:/page/user/meeting";
+    }
+
+    @RequestMapping("/uploadInMeeting")
+    public String uploadInMeeting(@RequestPart("meetingfile") MultipartFile meetingfile,
+                                  @RequestParam("mid")int mid,
+                                  HttpSession session) throws IOException {
+        User user = authService.findUserBySession(session);
+        meetingService.uploadInMeeting(meetingfile,user.getUid(),user.getNickname(),mid);
+        return "redirect:/page/user/meetingFiles?mid=" + mid;
     }
 }

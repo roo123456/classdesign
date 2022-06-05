@@ -94,7 +94,7 @@ public class UserPageController {
     }
 
     /**
-     * 新建会议室
+     * 新建会议室页
      * @param httpSession
      * @param model
      * @return
@@ -106,10 +106,26 @@ public class UserPageController {
         return "/user/add-meeting";
     }
 
-    @RequestMapping("/enterMeeting")
+    /**
+     * 加入会议室页
+     * @param httpSession
+     * @param model
+     * @return
+     */
+    @RequestMapping("/joinMeeting")
     public String enterMeeting(HttpSession httpSession,Model model){
         User user = authService.findUserBySession(httpSession);
         model.addAttribute("user",user);
-        return "/user/enter-meeting";
+        return "/user/join-meeting";
+    }
+
+    @RequestMapping("/meetingFiles")
+    public String meetingFiles(HttpSession httpSession,Model model,
+                               @RequestParam("mid")int mid){
+        User user = authService.findUserBySession(httpSession);
+        model.addAttribute("user",user);
+        model.addAttribute("thisMid",mid);
+        model.addAttribute("meetingFiles",meetingService.getAllMeetingFilesByMid(mid));
+        return "/user/meetingFiles";
     }
 }

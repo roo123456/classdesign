@@ -1,6 +1,7 @@
 package com.example.classdesign.mapper;
 
 import com.example.classdesign.entity.Meeting;
+import com.example.classdesign.entity.MeetingFile;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -48,7 +49,7 @@ public interface MeetingMapper {
      * @param uid
      */
     @Insert("insert into meeting_user(mid,uid) values(#{mid},#{uid})")
-    void enterMeeting(@Param("mid") int mid,@Param("uid") int uid);
+    void joinMeeting(@Param("mid") int mid,@Param("uid") int uid);
 
     /**
      * 通过会议室id和用户id删除会议室-用户对应表中的信息
@@ -57,4 +58,25 @@ public interface MeetingMapper {
      */
     @Delete("delete from meeting_user where mid = #{mid} and uid = #{uid}")
     void leaveMeeting(@Param("mid") int mid,@Param("uid") int uid);
+
+    /**
+     * 通过会议室id查找该会议室内所有文件信息
+     * @param mid
+     * @return
+     */
+    @Select("select * from meetingfile where fid in (select fid from meeting_meetingfile where mid = #{mid})")
+    List<MeetingFile> getAllMeetingFilesByMid(int mid);
+
+    @Select("select mname from meeting where mid = #{mid}")
+    String getMnameByMid(int mid);
+
+    @Insert("insert into meetingfile(uid,nickname,fname,fpath,fdate) values(#{uid},#{nickname},#{fname},#{fpath},NOW())")
+    void uploadFileInMeeting(@Param("uid") int uid,@Param("nickname") String nickname,
+                             @Param("fname") String fname,@Param("fpath") String fpath);
+
+    @Select("select LAST_INSERT_ID()")
+    int getLastInsertId();
+
+    @Insert("insert into meeting_meetingfile(mid,fid) values(#{mid},#{fid})")
+    void insertUploadInMeetingInfo(@Param("mid") int mid,@Param("fid") int fid);
 }

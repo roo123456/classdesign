@@ -1,7 +1,10 @@
 package com.example.classdesign.service;
 
 import com.example.classdesign.entity.Meeting;
+import com.example.classdesign.entity.MeetingFile;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface MeetingService {
@@ -25,7 +28,7 @@ public interface MeetingService {
      * @param mkey
      * @param uid
      */
-    void enterMeetingByMkey(String mkey, int uid);
+    void joinMeetingByMkey(String mkey, int uid);
 
     /**
      * 某用户退出一个会议室
@@ -33,4 +36,19 @@ public interface MeetingService {
      * @param uid
      */
     void leaveMeeting(int mid, int uid);
+
+    /**
+     * 获取某个会议室内的所有文件信息
+     * @param mid
+     * @return
+     */
+    List<MeetingFile> getAllMeetingFilesByMid(int mid);
+
+    /**
+     * 在会议室中上传文件
+     * @param meetingfile
+     * @param uid
+     * @param nickname
+     */
+    void uploadInMeeting(MultipartFile meetingfile, int uid, String nickname,int mid) throws IOException;
 }

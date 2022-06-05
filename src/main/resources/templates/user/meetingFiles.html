@@ -164,8 +164,11 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card chart-card">
                             <div class="card-header">
-                                <a type="button" class="btn btn-primary mt-2 mr-2" th:href="@{/page/user/addMeeting}">新建会议室</a>
-                                <a type="button" class="btn btn-primary mt-2 mr-2" th:href="@{/page/user/joinMeeting}">加入会议室</a>
+                                <form>
+                                    <input type="file" id="meetingfile" name="meetingfile" th:oninput="|uploadInMeeting(${thisMid})|" hidden>
+                                    <a type="button" class="btn btn-primary mt-2 mr-2" onclick="meetingfile.click()">上传文件</a>
+                                </form>
+                                <a type="button" class="btn btn-primary mt-2 mr-2" th:href="@{/page/user/meetingFiles?mid=} + ${thisMid}">刷新</a>
                             </div>
                             <div class="card-body pb-4">
                                 <div class="chart-holder">
@@ -173,24 +176,20 @@
                                         <table class="table table-styled mb-0">
                                             <thead>
                                                 <tr>
-                                                    <th>会议室id</th>
-                                                    <th>会议室名</th>
-                                                    <th>创建人昵称</th>
-                                                    <th>创建时间</th>
-                                                    <th>会议室号</th>
-                                                    <th>进入会议室</th>
-                                                    <th>退出会议室</th>
+                                                    <th>文件名</th>
+                                                    <th>上传人昵称</th>
+                                                    <th>上传时间</th>
+                                                    <th>下载</th>
+                                                    <th>删除</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-												<tr th:each="meeting : ${meetings}">
-                                                    <td th:text="${meeting.getMid()}">#DD1048</td>
-                                                    <td th:text="${meeting.getMname()}">#DD1048</td>
-                                                    <td th:text="${meeting.getNickname()}">#DD1048</td>
-                                                    <td th:text="${meeting.getMdate()}">#DD1048</td>
-                                                    <td th:text="${meeting.getMkey()}">#DD1048</td>
+												<tr th:each="meetingfile : ${meetingFiles}">
+                                                    <td th:text="${meetingfile.getFname()}">#DD1048</td>
+                                                    <td th:text="${meetingfile.getNickname()}">#DD1048</td>
+                                                    <td th:text="${meetingfile.getFdate()}">#DD1048</td>
                                                     <td class="relative">
-                                                        <a class="action-btn " th:href="@{/page/user/meetingFiles?mid=} + ${meeting.getMid()}">
+                                                        <a class="action-btn " th:href="@{/api/user/downloadInMeeting?fid=} + ${meetingfile.getFid()}">
                                                             <svg class="default-size " viewbox="0 0 341.333 341.333 ">
                                                                 <g>
                                                                     <g>
@@ -205,7 +204,7 @@
                                                         </a>
                                                     </td>
                                                     <td class="relative">
-                                                        <a class="action-btn " th:href="@{/api/user/leaveMeeting?mid=} + ${meeting.getMid()}">
+                                                        <a class="action-btn " th:href="@{/api/user/deleteFileInMeeting?fid=} + ${meetingfile.getFid()}">
                                                             <svg class="default-size " viewbox="0 0 341.333 341.333 ">
                                                                 <g>
                                                                     <g>
@@ -247,7 +246,7 @@
     <script th:src="@{/static/js/nice-select.min.js}"></script>
     <!-- Custom Script -->
     <script th:src="@{/static/js/custom.js}"></script>
-    <script th:src="@{/static/js/file.js}"></script>
+    <script th:src="@{/static/js/file.js}" ></script>
 </body>
 
 </html>
