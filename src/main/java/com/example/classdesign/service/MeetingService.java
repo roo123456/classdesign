@@ -51,4 +51,17 @@ public interface MeetingService {
      * @param nickname
      */
     void uploadInMeeting(MultipartFile meetingfile, int uid, String nickname,int mid) throws IOException;
+
+    /**
+     * 通过文件id查找会议室文件
+     * @param fid
+     * @return
+     */
+    MeetingFile FindMeetingFileByFid(int fid);
+
+    /**
+     * 删除会议室中某文件
+     * @param fid
+     */
+    void deleteFileInMeeting(int fid);
 }

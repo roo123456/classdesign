@@ -167,8 +167,8 @@
                                 <form>
                                     <input type="file" id="meetingfile" name="meetingfile" th:oninput="|uploadInMeeting(${thisMid})|" hidden>
                                     <a type="button" class="btn btn-primary mt-2 mr-2" onclick="meetingfile.click()">上传文件</a>
+                                    <a type="button" class="btn btn-primary mt-2 mr-2" th:href="@{/page/user/meetingFiles?mid=} + ${thisMid}">刷新</a>
                                 </form>
-                                <a type="button" class="btn btn-primary mt-2 mr-2" th:href="@{/page/user/meetingFiles?mid=} + ${thisMid}">刷新</a>
                             </div>
                             <div class="card-body pb-4">
                                 <div class="chart-holder">
@@ -204,7 +204,7 @@
                                                         </a>
                                                     </td>
                                                     <td class="relative">
-                                                        <a class="action-btn " th:href="@{/api/user/deleteFileInMeeting?fid=} + ${meetingfile.getFid()}">
+                                                        <a class="action-btn " th:if="${meetingfile.getUid() eq user.getUid()}" th:href="@{/api/user/deleteFileInMeeting(fid=${meetingfile.getFid()},mid=${thisMid})}">
                                                             <svg class="default-size " viewbox="0 0 341.333 341.333 ">
                                                                 <g>
                                                                     <g>

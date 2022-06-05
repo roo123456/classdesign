@@ -79,4 +79,10 @@ public interface MeetingMapper {
 
     @Insert("insert into meeting_meetingfile(mid,fid) values(#{mid},#{fid})")
     void insertUploadInMeetingInfo(@Param("mid") int mid,@Param("fid") int fid);
+
+    @Select("select * from meetingfile where fid = #{fid}")
+    MeetingFile FindMeetingFileByFid(int fid);
+
+    @Delete("delete from meetingfile where fid = #{fid}")
+    void deleteFileInMeeting(int fid);
 }

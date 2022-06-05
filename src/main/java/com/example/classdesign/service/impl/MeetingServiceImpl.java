@@ -92,4 +92,20 @@ public class MeetingServiceImpl implements MeetingService {
         int fid = meetingMapper.getLastInsertId();
         meetingMapper.insertUploadInMeetingInfo(mid,fid);
     }
+
+    @Override
+    public MeetingFile FindMeetingFileByFid(int fid) {
+        return meetingMapper.FindMeetingFileByFid(fid);
+    }
+
+    @Override
+    public void deleteFileInMeeting(int fid) {
+        MeetingFile meetingFile = meetingMapper.FindMeetingFileByFid(fid);
+        //先删除文件
+        String fpath = meetingFile.getFpath();
+        File file = new File(fpath);
+        boolean delete = file.delete();
+        //再删除文件信息
+        meetingMapper.deleteFileInMeeting(fid);
+    }
 }

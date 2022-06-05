@@ -1,5 +1,6 @@
 package com.example.classdesign.controller.api;
 
+import com.example.classdesign.entity.MeetingFile;
 import com.example.classdesign.entity.User;
 import com.example.classdesign.service.AuthService;
 import com.example.classdesign.service.FileService;
@@ -221,12 +222,74 @@ public class UserApiController {
         return "redirect:/page/user/meeting";
     }
 
+    /**
+     * 上传文件到会议室
+     * @param meetingfile
+     * @param mid
+     * @param session
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/uploadInMeeting")
     public String uploadInMeeting(@RequestPart("meetingfile") MultipartFile meetingfile,
                                   @RequestParam("mid")int mid,
                                   HttpSession session) throws IOException {
         User user = authService.findUserBySession(session);
         meetingService.uploadInMeeting(meetingfile,user.getUid(),user.getNickname(),mid);
+        return "redirect:/page/user/meetingFiles?mid=" + mid;
+    }
+
+    /**
+     * 从会议室下载文件
+     * @param response
+     * @param fid
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/downloadInMeeting")
+    public String downloadInMeeting(HttpServletResponse response,
+                            @RequestParam("fid") int fid) throws Exception{
+        //查找数据库拿到文件名和路径
+        MeetingFile file1 = meetingService.FindMeetingFileByFid(fid);
+        String fname = file1.getFname();
+        String fpath = file1.getFpath();
+
+        //1、设置response 响应头
+        response.reset(); //设置页面不缓存,清空buffer
+        response.setCharacterEncoding("UTF-8"); //字符编码
+        response.setContentType("multipart/form-data"); //二进制传输数据
+        //设置响应头
+        response.setHeader("Content-Disposition",
+                "attachment;fileName="+ URLEncoder.encode(fname, "UTF-8"));
+
+        File file = new File(fpath);
+        //2、 读取文件--输入流
+        InputStream input=new FileInputStream(file);
+        //3、 写出文件--输出流
+        OutputStream out = response.getOutputStream();
+
+        byte[] buff =new byte[1024];
+        int index=0;
+        //4、执行 写出操作
+        while((index= input.read(buff))!= -1){
+            out.write(buff, 0, index);
+            out.flush();
+        }
+        out.close();
+        input.close();
+        return null;
+    }
+
+    /**
+     * 从会议室中删除文件
+     * @param fid
+     * @param mid
+     * @return
+     */
+    @RequestMapping("/deleteFileInMeeting")
+    public String deleteFileInMeeting(@RequestParam("fid")int fid,
+                                      @RequestParam("mid")int mid){
+        meetingService.deleteFileInMeeting(fid);
         return "redirect:/page/user/meetingFiles?mid=" + mid;
     }
 }
